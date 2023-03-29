@@ -47,3 +47,13 @@ one-to-one: inefficient so could merge two tables into one (still respects the n
 many-to-many: unable to identify the relationship\
 On the diagram, `1` refers to the primary key (*one side*), `*` refers to the foreign key (*many side*)
 ### Filter flow
+Filter direction (arrow) in each relationship, by default, will point from the `one` side (lookups) to the `many` side (data)\
+Filters **cannot** flow upstream., So use the Primarykey from the lookup table then can see data from other tables.
+
+### Two-way Filter FLow 
+Bi-directional filter can have the data going both downstream and upstream.\
+However, if the key doesn't exist in one table, it will not pass onto the other table --> see screen shot\
+It is dangerous, so only use **when necessary**: risk of creating **ambiguous relationships**\
+Can only have one bi-direction filter at a time or it will show error meessage. --> otherwise it will pass multiple conflicting filters to the same lookup table.\
+**Way to prevent filtering issues:**\
+Use `Hide in report view` to hide the foreign in the tables.
