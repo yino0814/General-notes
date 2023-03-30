@@ -80,3 +80,49 @@ Use `Hide in report view` to hide the foreign in the tables.
 |**&&**|Cret an AND condition between two logical expressions|([State]='MA') && {[Quantity]>10}|
 |\|\||Create an OR condition between two logical expressions|([State]='MA') **||** {[Quantity]>10}|
 |**IN**|Create a logical OR condition based on a given list (using curly brackets)|'Store Lookup'[State] IN {"MA","CT","NY"}|
+
+### Common DAX Function Categories
+|MATH & STATS|LOGICAL|TEXT|FILTER|DATE & TIME|
+|-|-|-|-|-|
+|Basic **aggreation** functions as well as **interators** evaluated at the row-level|Returning info about values in a given conditional expression|Manipulate Text strings or control formats for dates, times or numbers| Lookup functions based on related tables and filtering functions for dynamic calculations| Basic date & time functions as well as advanced time intelligence operations|
+|<br>SUM <br>AVERAGE <br>MAX/MIN <br>DIVIDE <br>COUNT/COUNTA <br>COUNTROWS <br>DISTINCTCOUNT|<br>IF <br>IFERROR <br>AND/OR/NOT <br>SWITCH <br>TRUE/FALSE|<br>CONCATENATE <br>FORMAT <br>LEFT/MID/RIGHT <br>UPPER/LOWER <br>PROPER <br>LEN <br>SEARCH/FIND <br>REPLACE <br>REPT <br>SUBSTITUTE <br>TRIM <br>UNICHAR|<br>CALCULATE <br>FILTER <br>ALL/ALLEXCEPT <br>RELATED <br>RELATEDTABLE <br>DISTINCTVALUES <br>EARLIER/EARLIEST <br>HASONEVALUE <br>HASNOFILTER <br>ISFILTERED <br>USERELATIONSHIP|<br>DATEDIFF <br>YEARFRAC <br>YEAR/MONTH/DAY <br>HOUR/MINUTE/SECOND <br>TODAY/NOW <br>WEEKDAY/WEEKNUM|
+
+||DATE & TIME functions||
+|-|-|-|
+|DAY/MONTH/YEAR()|Returns the day of the month (1-31), month (1-12) or year| =**DAY/MONTH/YEAR**(Date)|
+|HOUR/MINUTE/SECOND()|Returns the hour (0-23), minute(0-59), or second (0-59)|=**HOUR/MINUTES/SECOND**(Datetime)|
+|TODAY/NOW()|Returns the current date or exact time|=**TODAY/NOW()**|
+|WEEKDAY/WEEKNUM()|Returns a week number form 1 (Sunday) to 7 (Saturday) or the week# of the year|=**WEEKDAY/WEEKNUM**(Date, *[ReturnType]*)|
+|EOMONTH()|End of month, returns the date of the last day of the month, +/- a specified number of months|=**EOMONTH**(StartDate, Months)|
+|DATEDIFF()|Difference between two dates, based on a selected interval|=**DATEDIFF**(Date1, Date2, Interval)|
+
+||Logical Functions||
+|-|-|-|
+|If()|Check if a condition given is met, returns TRUE or FALSE| =IF(LogicalTest, ResultTrue, *[REsultIfFalse]*|
+|IFERROR()|Evaluates an expression and returns a specified value if the expression returns an error, otherwise returns the expression itself| =IFERROR(Value, ValueIfError)|
+|AND()|Check if both arguments are TRUE| =AND(Logical1, Logical2)|
+|OR()|Check if one of the argument is TRUE| =OR(Logical1, Logical2)|
+|**Note for AND/OR**|If using more than 2 conditions, use **&&** and **\|\|**||
+
+||Text Funcitons||
+|-|-|-|
+|LEN()|Returns the length of a string|=LEN(Text)|
+|CONCATENATE()|Joins two text strings into one|=CONCATENATE(Text1, Text2) #use **&** as a short cut/more than 2 strings|
+|LEFT/MID/RIGHT()|Returns a number of characters from start/mid/end of a string|=LEFT/RIGHT(Text,*[NumChars]*) =MID(Text,StartPosition, NumChars)|
+|UPPER/LOWER/PROPER()|Convert string to upper/lower/proper case| =UPPER/LOWER/PROPER(Text)|
+|SUBSTITUTE()|Replace an instance of existing text with a new text in a string|=SUBSTITUTE(Text,OldText,NewText,*[InstanceNumber]*)|
+|SEARCH()| Return the position where a specified string is found, reading from left to right| =SEARCH(FindText,WithinText,*[StartPosition*,*[NotFoundValue]*)|
+
+#### Related
+=RELATED(ColumnName): Returns related values in each row of a table based on relationships with other tables\
+**Note:** RELATED works almost *exactally* like a VLOOKUP function (uses the relationship between two tables to pull values from one table into a new column of another\
+since the function requires row context, it can only be used as a **calculated column** or as part of an **interator function** that cycles through all rows in a table (FILTER,SUMX,MAXX,etc)\
+**PRO TIP:** Avoid using RELATED to create redundant calculated columns unless absolutely need them, since those extra columns increase file size. Instead, ise RELATED nested within a **measure** like FILTER or SUMX.
+
+||Math & Stats Functions||
+|-|-|-|
+|SUM()|Evalutes the sum of a column| =SUM(ColumnName)|
+|AVERAGE()|Returns the average (arithmetic mean) of all numbers in a column|=AVERAGE(ColumnName)|
+|MAX()|Returns the largest value in a column or between two scalar expressions|=MAX(ColumnName) or =MAX(Scalar1,*[Scalar2]*)|
+|MIN()|Returns the smallest value in a column or between two scalar expressions|=MIN(ColumnName) or =MIN(Scalar1,*[Scalar2]*)|
+|DIVIDE()|Performs division and returns the alternate result (or blank) if **div/0** |=DIVIDE(Numberator, Denonminator,*[AlternateResult]*)|
