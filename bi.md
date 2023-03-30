@@ -62,3 +62,21 @@ Use `Hide in report view` to hide the foreign in the tables.
 |-|-|
 |Values are calculated based on info from eacho row or table (has row context)|Based on info from any filters in the report (hasfilter context)|
 |Appends static values to each row in a table and stores themm in the model (increases file size)|Doesn't create new data in the tables|
+|Recalculate on data source refresh or when changes ar made to component columns|Recallculate in response to any change  to fiilters within the report|
+|Primarily used as **rows, columns, slicers,filters**|Almost *always* used within the **values** field of a visual|
+|Live in TABLES|Live in VISUALS|
+### Implicit vs Explicit measures
+**Implicit measures**: created when you drag raw numerical fields (like OrderQuantity) into the value pane od of a visual and manually select the aggregation mode.\
+--> can only referenced within the specific visualisation\
+**Explicit measures**: created by actually entering DAX funcitons to define calculated columns or measures.\
+--> can be referenced in other tables. 
+### DAX syntax & operators
+*+ - * / ^*\
+*= > < >= <= <> (not equal to)*\
+
+|Text/logical operator|Meaning|example|
+|-|-|-|
+|**&**|Concatenates two values to produce one text string|[City] & " " & [State]|
+|**&&**|Cret an AND condition between two logical expressions|([State]='MA') && {[Quantity]>10}|
+|\|\||Create an OR condition between two logical expressions|([State]='MA') **||** {[Quantity]>10}|
+|**IN**|Create a logical OR condition based on a given list (using curly brackets)|'Store Lookup'[State] IN {"MA","CT","NY"}|
