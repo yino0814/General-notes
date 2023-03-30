@@ -57,3 +57,8 @@ It is dangerous, so only use **when necessary**: risk of creating **ambiguous re
 Can only have one bi-direction filter at a time or it will show error meessage. --> otherwise it will pass multiple conflicting filters to the same lookup table.\
 **Way to prevent filtering issues:**\
 Use `Hide in report view` to hide the foreign in the tables.
+### Calculated columns vs measure
+|**Calculated Columns**|**Measures**|
+|-|-|
+|Values are calculated based on info from eacho row or table (has row context)|Based on info from any filters in the report (hasfilter context)|
+|Appends static values to each row in a table and stores themm in the model (increases file size)|Doesn't create new data in the tables|
