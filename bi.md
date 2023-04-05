@@ -126,3 +126,10 @@ since the function requires row context, it can only be used as a **calculated c
 |MAX()|Returns the largest value in a column or between two scalar expressions|=MAX(ColumnName) or =MAX(Scalar1,*[Scalar2]*)|
 |MIN()|Returns the smallest value in a column or between two scalar expressions|=MIN(ColumnName) or =MIN(Scalar1,*[Scalar2]*)|
 |DIVIDE()|Performs division and returns the alternate result (or blank) if **div/0** |=DIVIDE(Numberator, Denonminator,*[AlternateResult]*)|
+
+||Count Functions||
+|-|-|-|
+|COUNT()|Count the number of cells in a column that contain numbers|=COUNT(ColumnName)|
+|COUNTA()|Count non-empty cells|=COUNTA(ColumnName)|
+|DISTINCTCOUNT()|Counts the number of distinct/unique values in a column|=DISTINCTCOUNT(ColumnName)
+|COUNTROWS()|Counts the number of rows in the specified table, or a table defined by an expression|=COUNTROWS(**Table**)|
